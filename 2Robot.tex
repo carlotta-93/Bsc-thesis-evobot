@@ -1,49 +1,89 @@
 \chapter{La piattaforma robot}
-\vspace{0.5cm}
+%\vspace{0.5cm}
 
 \label{cha:789}
-EvoBot unisce elementi dell'open source delle stampanti 3D e della robotica modulare per fornire a chimici, microbiologi e ricercatori nel campo della vita artificiale, a livello chimico, uno strumento economico ed estendibile basato su una piattaforma robotica open source per il trattamento di liquidi.
-\\ La particolarità di Evobot sta nella progettazione mirata ad una interazione continua ed in tempo reale dell'utente con l'esperimento in corso.\cite{introd-robot}
-\\La struttura di EvoBot ricorda quella di una comune stampante 3D, organizzata in strati.
-
-
+EvoBot è un robot che unisce elementi delle stampanti 3D con quelli della robotica modulare per fornire a chimici, microbiologi e ricercatori nel campo della vita (a livello chimico) artificiale, uno strumento economico ed estendibile basato su una piattaforma open source di robotica per il trattamento di liquidi. La particolarità di EvoBot sta nella progettazione mirata ad un'interazione continua ed in tempo reale dell'utente con l'esperimento in corso.\cite{introd-robot}
+\\Come le comuni stampanti 3D,  questo robot è composto da una componente hardware guidata da una parte software. 
 
 \section{La componente hardware}
-\label{sec:456}
-EvoBot si compone, a livello meccanico, di tre strati ed è sotto il controllo di una \emph{board}. Questa è costituita da un Arduino Mega 2560 su cui è montata una scheda RAMPS (RepRap Arduino Mega Pololu Shield). Queste due schede controllano la testa del robot e gli input provenienti dai sensori esterni. 
-Il primo dei tre strati mostrato in figura, è lo strato di attivazione, \emph{actuation layer}. 
-	\begin{center}
-	  \includegraphics[scale=0.40]{actuation_layer.png}
-	 %\caption{actuation layer}
-	\end{center}
-Questo contiene la testa che si può muovere sul piano orizzontale usando una cinghia ed un meccanismo a ruota dentata con due motori \emph{stepper}.
-\\Il secondo strato è quello degli esperimenti: \emph{experimental layer}.
-	\begin{center}
-	  \includegraphics[scale=0.60]{experiment_layer.png}
-	 %\caption{experimental layer}
-	\end{center} 
-Questo strato è essenzialmente composto da una cornice in alluminio, identica a quella della struttura esterna del robot, che racchiude una piastra di vetro trasparente. Su questo strato posso essere adagiati i recipienti richiesti dagli specifici esperimenti. Una fessura rettangolare ad uno degli angoli permette le manovre di sostituzione dei recipienti in uso. La sua funzionalità verrà sfruttata in futuro creando un distributore automatico di  \emph{Petri dish} da posizionarvi all'interno. 
-L'ultimo strato è quello dell'osservazione: \emph{observation layer} .
+EvoBot è composto, a livello elettronico, da un Arduino Mega 2560 su cui è montata una scheda RAMPS (RepRap Arduino Mega Pololu Shield); queste due schede controllano la testa del robot e gli input provenienti da sensori esterni. 
+A livello meccanico, invece, è strutturato in tre strati: \emph{actuation layer}, \emph{experimental layer} e  \emph{observation layer}.
+\\Partendo dal basso si trova lo strato è dell'osservazione: \emph{observation layer}. Questo \emph{layer} non prevede nessuna interazione con gli esperimenti in corso sul layer superiore. E' utilizzato per il posizionamento di moduli che andranno a raccogliere dati, senza manipolare direttamente l'esperimento, che verranno forniti sia al robot sia all'utente. Nel nostro caso è presente una webcam. 
+	\begin{figure}[h]
+	  \includegraphics[scale=0.40]{immagini/observational-layer.png}
+	\centering
+	 \caption{observational layer}
+	\end{figure} 
+
+\pagebreak
+Il secondo strato è quello degli esperimenti: \emph{experimental layer}. Questo strato è essenzialmente composto da una cornice in alluminio, identica a quella della struttura esterna del robot, che racchiude una piastra di vetro. Su questo strato possono essere posti i recipienti richiesti dagli specifici esperimenti. Una fessura rettangolare ad uno degli angoli permette le manovre di sostituzione dei recipienti in uso. La sua funzionalità verrà sfruttata in futuro creando un distributore automatico di  \emph{Petri dish} da posizionarvi all'interno.
+	\begin{figure}[h]
+	  \includegraphics[scale=0.40]{immagini/experiment_layer.png}
+		\centering 
+	\caption{experimental layer}
+	\end{figure} 
+\\L'ultimo dei tre strati, è lo strato di attivazione, \emph{actuation layer}, ovvero la testa del robot.  Questo layer si occupa del movimento della testa sul piano orizzontale per mezzo di un meccanismo cinghia-ruota dentata con due motori \emph{stepper}. La testa si può muovere nelle due direzioni sul livello orizzontale: \emph{x} e \emph{z}.
+
+	\begin{figure}[h]
+	  \includegraphics[scale=0.30]{immagini/actuation_layer.png}
+		\centering	
+	 \caption{actuation layer}
+	\end{figure}
+\pagebreak
 
 \subsection{La testa}
-\label{sec:00456}
-La \emph{head}, testa del robot, è la componente principale dell'\emph{actuation layer}. Essa può contenere fino ad un massimo di 11 moduli per fornire funzionalità differenti. Ad oggi è stato implementato soltanto il modulo per le siringhe ma si prevede l'implementazione futura di altri moduli, sensori di pH, di temperatura e pinze per la manipolazione delle capsule di Petri utilizzate durante gli esperimenti. 
-\\ La testa si può muovere in due direzioni sul livello orizzontale: gli assi \emph{x} e \emph{z}. Le schede che compongono la testa permettono di rispondere a stimoli esterni (?)
-ramps . arduino
+La \emph{head}, testa del robot, è la componente principale dell'\emph{actuation layer}. E' comporta di 17 \emph{socket} all'interno delle quali possono essere inseriti diversi moduli. Tuttavia, per come è stata strutturata, non c'è possibilità di inserire tutti i moduli contemporaneamente. Essa può contenere fino ad un massimo di 11 moduli per fornire funzionalità differenti. Ad oggi esiste soltanto il modulo per le siringhe ma si prevede nel breve futuro, l'implementazione di altri moduli: sensori di pH e di temperatura e pinze per la manipolazione delle Petri dish utilizzate durante i vari esperimenti. 
+	\begin{figure}[h]
+	\centering
+   		{\includegraphics[width=8cm]{immagini/head_sockets_1.png}}
+ 	\hspace{5mm}
+   		{\includegraphics[width=8cm]{immagini/head_sockets.png}}
+	\caption{socket disposition}
+ 	\end{figure}
+
 
 \subsection{Le siringhe}
 \label{sec:01456}
-come si fa un sottocapitolo
+Il modulo delle siringhe ha due gradi di movimento verticale. Ogni modulo è composto di uno motore passo-passo lineare per il movimento dello stantuffo, \emph{plunger}, e di un meccanismo a rocchetto e cremagliera con un secondo motore passo-passo per il movimento del corpo della siringa. La siringa può essere facilmente sostituita dando all'utente l'opportunità di utilizzare siringhe con specifiche differenti in base alle necessità dell'esperimento. Le siringhe rappresentano la componente di EvoBot che lo distingue da una qualsiasi stampante 3D, consentendogli di gestire sostanze liquide.
+	\begin{figure}[h]
+	  \includegraphics[scale=0.30]{immagini/syringe_parts.png}
+		\centering
+	 \caption{syringe module}
+	\end{figure} 
 
+\pagebreak 
 \section{La componente software}
 \label{sec:123}
-scrivere qualcosa di introduzione
+La finalità della componente software è quella di fornire all'utente finale un'interfaccia facilmente programmabile per guidare il robot. Il software è suddiviso in una \emph{host side} e in una \emph{robot side}. La prima comunica con la seconda attraverso una connessione USB. La \emph{robot side} è una versione modificata del firmware Marlin usato nei programmi opensource delle stampanti 3D. 
+\\Il linguaggio di programmazione utilizzato per la stesura delle API e dei programmi successivi è Python. La suite software offerta al momento dell'installazione è composta da tre elementi:
+un programma di \emph{computer vision} per la calibrazione del robot, un'interfaccia grafica per il controllo manuale del robot ed un esempio di programma, sviluppato utilizzando le API, per l'identificazione delle componenti di uno specifico esperimento.
+\\Lo scopo del progetto è stato quello di creare un programma in grado di controllare il robot manualmente in tempo reale e raccogliere i dati necessari dagli esperimenti eseguiti, di cui si parlerà nel prossimo capitolo. 
 
-\begin{itemize}
-  \item API 
-  \item bitbucket
-  \item calibrazione
-  \item processi visuali - threshold 
-\end{itemize}
+\subsection{Il controllo manuale}
+\label{sec:00123}
+La scelta di un software per il controllo manuale del robot nasce dalla necessità di ottenere la posizione di oggetti di interesse (Petri dish e recipienti vari) sullo strato degli esperimenti. L'interfaccia grafica permette di testare le diverse funzioni del robot senza il bisogno di ricorrere alla programmazione. Per esempio, si può muovere la testa del robot fino a centrare uno dei contenitori, far scendere la siringa all'interno di questo e registrare la posizione del centroide dell'oggetto. 
+\\Per controllare manualmente EvoBot si utilizza Printrun \cite{printrun}, una \emph{3D printing host suite}  opensource, con la quale, attraverso dei codici G standard, si controlla il movimento della testa del robot e con dei codici M speciali si controlla il movimento delle siringhe e degli stantuffi. Inoltre con i codici M si possono identificare i limiti dei due movimenti che una siringa può compiere.
 
+\subsection{La calibrazione}
+\label{sec:01123}
+In questo sistema la calibrazione è il primo passo importante per correlare il sistema di coordinate della videocamera con quello del robot. A questo proposito viene creata la matrice di trasformazione compiendo le istruzioni imposte dal programma calibrationExample.py. 
+Poiché si ha la possibilità di posizionare le differenti piastre di Petri su tutto lo strato degli esperimenti o di impostare la distanza tra \emph{l'actuation layer} e \emph{experimental layer}, il programma è pensato per specificare i punti esatti per una massima accuratezza nella calibrazione. All'interno del programma si definisce il punto in cui è posizionata la Petri \emph{dish}, il suo diametro e la distanza tra i due layer.
+Avvenuta la calibrazione, si hanno a disposizione le matrici di ogni siringa da poter utilizzare nei programmi successivi per muovere le siringhe nei punti richiesti dagli esperimenti.
+
+\subsection{L'identificazione delle \emph{droplets}}
+\label{sec:02123}
+Lo scopo principale di questo progetto è l'identificazione di gocce, \emph{droplets}, per ricavarne l'area, il colore, il numero, la forma e, più importante, per tracciarne il movimento.
+La componente principale dell'identificazione è la libreria OpenCV (Open Source Computer Vision Library)\cite{opencv} che include diverse funzioni ed algoritmi di \emph{computer vision}. 
+
+
+
+
+
+
+
+
+
+
+
+ 
 

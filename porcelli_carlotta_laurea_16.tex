@@ -18,17 +18,20 @@
 \usepackage{setspace}
 \usepackage[paperheight=29.7cm,paperwidth=21cm,outer=1.5cm,inner=2.5cm,top=2cm,bottom=2cm]{geometry} % per definizione layout
 \usepackage{titlesec} % per formato custom dei titoli dei capitoli
-
 \usepackage{url} 
+\usepackage{graphicx}
+\graphicspath{immagini/}
 
 %%%%%%%%%%%%%%
 % supporto lettere accentate
 %
 %\usepackage[latin1]{inputenc} % per Windows;
 \usepackage[utf8x]{inputenc} % per Linux (richiede il pacchetto unicode);
-
 \singlespacing
 \usepackage[italian]{babel}
+\usepackage{epigraph}
+\setlength\epigraphwidth{13cm}
+\setlength\epigraphrule{0pt}
 
 \begin{document}
 
@@ -106,7 +109,8 @@
       \input{1EvoblissProject}
       \input{2Robot}
       \input{3Chimica}
-      \input{4Conclusioni}	
+      \input{4FinalMultiTracker.tex}
+      \input{5Conclusioni}	
       
   
       
