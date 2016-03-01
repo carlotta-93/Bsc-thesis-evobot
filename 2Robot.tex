@@ -8,7 +8,7 @@ EvoBot è un robot che unisce elementi delle stampanti 3D con quelli della robot
 \section{La componente hardware}
 EvoBot è composto, a livello elettronico, da un Arduino Mega 2560 su cui è montata una scheda RAMPS (RepRap Arduino Mega Pololu Shield); queste due schede controllano la testa del robot, i moduli ad essa collegati e gli input provenienti da sensori esterni. 
 A livello meccanico, invece, è strutturato in tre strati: \emph{actuation layer}, \emph{experimental layer} e  \emph{observation layer}.
-\\Partendo dal basso si trova lo strato è dell'osservazione: \emph{observation layer}. Questo \emph{layer} non prevede nessuna interazione con gli esperimenti in corso sul layer superiore. E' utilizzato per il posizionamento di moduli che andranno a raccogliere dati, senza manipolare direttamente l'esperimento, che verranno forniti sia al robot sia all'utente. Nel nostro caso è presente una webcam. 
+\\Partendo dal basso si trova lo strato dell'osservazione: \emph{observation layer}. Questo \emph{layer} non prevede nessuna interazione con gli esperimenti in corso sul layer superiore. E' utilizzato per il posizionamento di moduli che andranno a raccogliere dati, senza manipolare direttamente l'esperimento, che verranno forniti sia al robot sia all'utente. Nel nostro caso è presente una webcam. 
 	\begin{figure}[h]
 	  \includegraphics[scale=0.40]{immagini/observational-layer.png}
 	\centering
@@ -22,7 +22,7 @@ Il secondo strato è quello degli esperimenti: \emph{experimental layer}. Questo
 		\centering 
 	\caption{experimental layer}
 	\end{figure} 
-\\L'ultimo dei tre strati, è lo strato di attivazione, \emph{actuation layer}, ovvero la testa del robot.  Questo layer si occupa del movimento della testa sul piano orizzontale per mezzo di un meccanismo cinghia-ruota dentata con due motori \emph{stepper}. La testa si può muovere nelle due direzioni sul livello orizzontale: \emph{x} e \emph{z}.
+\\L'ultimo dei tre strati è lo strato di attivazione, \emph{actuation layer}, ovvero la testa del robot.  Questo layer si occupa del movimento della testa sul piano orizzontale per mezzo di un meccanismo cinghia-ruota dentata con due motori \emph{stepper}. La testa si può muovere nelle due direzioni sul livello orizzontale: \emph{x} e \emph{z}.
 
 	\begin{figure}[h]
 	  \includegraphics[scale=0.30]{immagini/actuation_layer.png}
@@ -32,7 +32,7 @@ Il secondo strato è quello degli esperimenti: \emph{experimental layer}. Questo
 \pagebreak
 
 \subsection{La testa}
-La \emph{head}, testa del robot, è la componente principale dell'\emph{actuation layer}. E' comporta di 17 \emph{socket} all'interno delle quali possono essere inseriti diversi moduli. Tuttavia, per come è stata strutturata, non c'è possibilità di inserire tutti i moduli contemporaneamente. Essa può contenere fino ad un massimo di 11 moduli per fornire funzionalità differenti. Ad oggi esiste soltanto il modulo siringa ma si prevede nel breve futuro, la costruzione di altri moduli come sensori di pH e di temperatura. 
+La \emph{head}, testa del robot, è la componente principale dell'\emph{actuation layer}. E' composta di 17 \emph{socket} all'interno delle quali possono essere inseriti diversi moduli. Tuttavia, per come è stata strutturata, non c'è possibilità di inserire tutti i moduli contemporaneamente. Essa può contenere fino ad un massimo di 11 moduli per fornire funzionalità differenti. Ad oggi esiste soltanto il modulo siringa ma si prevede nel breve futuro, la costruzione di altri moduli come sensori di pH e di temperatura. 
 	\begin{figure}[h]
 	\centering
    		{\includegraphics[width=8cm]{immagini/head_sockets_1.png}}
@@ -44,7 +44,7 @@ La \emph{head}, testa del robot, è la componente principale dell'\emph{actuatio
 
 \subsection{Le siringhe}
 \label{sec:01456}
-Il modulo siringa ha due gradi di movimento verticale. Ogni modulo è composto di uno motore passo-passo lineare per il movimento dello stantuffo, \emph{plunger}, e di un meccanismo a rocchetto e cremagliera con un secondo motore passo-passo per il movimento del corpo della siringa. La siringa può essere facilmente sostituita dando all'utente l'opportunità di utilizzare siringhe con specifiche differenti in base alle necessità dell'esperimento. Le siringhe sono la componente di EvoBot che gli consente di gestire sostanze liquide.
+Il modulo siringa ha due gradi di movimento verticale. Ogni modulo è composto di un motore passo-passo lineare per il movimento dello stantuffo, \emph{plunger}, e di un meccanismo a rocchetto e cremagliera con un secondo motore passo-passo per il movimento del corpo della siringa. La siringa può essere facilmente sostituita dando all'utente l'opportunità di utilizzare siringhe con specifiche differenti in base alle necessità dell'esperimento. Le siringhe sono la componente di EvoBot che gli consente di gestire sostanze liquide.
 	\begin{figure}[h]
 	  \includegraphics[scale=0.30]{immagini/syringe_parts.png}
 		\centering
@@ -57,25 +57,25 @@ Il modulo siringa ha due gradi di movimento verticale. Ogni modulo è composto d
 La finalità della componente software è quella di fornire all'utente finale un'interfaccia facilmente programmabile per guidare il robot. Il software è suddiviso in una \emph{host side} e in una \emph{robot side}. La prima comunica con la seconda attraverso una connessione USB. La \emph{robot side} è una versione modificata del firmware Marlin usato nei programmi opensource delle stampanti 3D. 
 \\Il linguaggio di programmazione utilizzato per la stesura delle API e dei programmi successivi è Python. La suite software offerta al momento dell'installazione è composta da tre elementi:
 un programma di \emph{computer vision} per la calibrazione del robot, un'interfaccia grafica per il controllo manuale del robot ed un esempio di programma, sviluppato utilizzando le API, per l'identificazione delle componenti di uno specifico esperimento.
-\\Lo scopo del progetto è stato quello di creare un programma in grado di controllare il robot manualmente in tempo reale e raccogliere i dati necessari dagli esperimenti eseguiti, di cui si parlerà nel prossimo capitolo. 
+\\L'obiettivo dello sviluppo della componente software è stato quello di creare un programma in grado di controllare il robot manualmente in tempo reale e raccogliere i dati necessari dagli esperimenti eseguiti, di cui si parlerà nel prossimo capitolo. 
 
 \subsection{Il controllo manuale}
 \label{sec:00123}
-La scelta di un software per il controllo manuale del robot nasce dalla necessità di ottenere la posizione di oggetti di interesse (Petri dish e recipienti vari) sullo strato degli esperimenti. L'interfaccia grafica permette di testare le diverse funzioni del robot senza il bisogno di ricorrere alla programmazione. Per esempio, si può muovere la testa del robot fino a centrare uno dei contenitori, far scendere la siringa all'interno di questo e registrare la posizione del centroide dell'oggetto. 
+La scelta di un software per il controllo manuale del robot nasce dalla necessità di ottenere la posizione di oggetti di interesse (Petri dishes e recipienti vari) sullo strato degli esperimenti. L'interfaccia grafica permette di testare le diverse funzioni del robot senza il bisogno di ricorrere alla programmazione. Per esempio, si può muovere la testa del robot fino a centrare uno dei contenitori, far scendere la siringa all'interno di questo e registrare la posizione del centroide dell'oggetto. 
 \\Per controllare manualmente EvoBot si utilizza Printrun \cite{printrun}, una \emph{3D printing host suite}  opensource, con la quale, attraverso dei codici G standard, si controlla il movimento della testa del robot e con dei codici M speciali si controlla il movimento delle siringhe e degli stantuffi. Inoltre con i codici M si possono identificare i limiti dei due movimenti che una siringa può compiere.
 
 \subsection{La calibrazione}
 \label{sec:01123}
-In questo sistema la calibrazione è il primo passo importante per correlare il sistema di coordinate della videocamera con quello del robot. A questo proposito viene creata la matrice di trasformazione compiendo le istruzioni imposte dal programma calibrationExample.py. 
-Poiché si ha la possibilità di posizionare le differenti piastre di Petri su tutto lo strato degli esperimenti o di impostare la distanza tra \emph{l'actuation layer} e \emph{experimental layer}, il programma è pensato per specificare i punti esatti per una massima accuratezza nella calibrazione. All'interno del programma si definisce il punto in cui è posizionata la Petri \emph{dish}, il suo diametro e la distanza tra i due layer.
+La calibrazione è il primo passo importante per correlare il sistema di coordinate della videocamera con quello del robot. A questo scopo viene creata la matrice di trasformazione compiendo le istruzioni imposte dal programma calibrationExample.py. 
+Avendo la possibilità di posizionare le differenti piastre di Petri su tutto lo strato degli esperimenti o di impostare la distanza tra \emph{l'actuation layer} e \emph{experimental layer}, il programma è pensato per specificare i punti esatti per una massima accuratezza nella calibrazione. All'interno del programma si definisce il punto in cui è posizionata la Petri \emph{dish}, il suo diametro e la distanza tra i due layer.
 Avvenuta la calibrazione, si hanno a disposizione le matrici di ogni siringa da poter utilizzare nei programmi successivi per muovere le siringhe nei punti richiesti dagli esperimenti.
 
 \subsection{L'identificazione delle \emph{droplets}}
 \label{sec:02123}
-Lo scopo principale di questo progetto è l'identificazione di gocce, \emph{droplets}, per ricavarne l'area, il colore, il numero, la forma e, più importante, per tracciarne il movimento.
+Una delle finalità prioritarie del progetto è l'identificazione di gocce, \emph{droplets}, per trovare l'area, il colore, il numero, la forma e, più importante, per tracciarne il movimento.
 %Come spiegato nella sezione 1.2.1le droplet.... aggiungere minchiate
 
-La componente principale dell'identificazione è la libreria OpenCV (Open Source Computer Vision Library)\cite{opencv} che include diverse funzioni ed algoritmi di \emph{computer vision}. 
+La componente principale utilizzata per l'identificazione è la libreria OpenCV (Open Source Computer Vision Library)\cite{opencv} che include diverse funzioni ed algoritmi di \emph{computer vision}. 
 
 
 
