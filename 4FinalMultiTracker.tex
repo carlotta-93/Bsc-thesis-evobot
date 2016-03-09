@@ -40,33 +40,153 @@ Le posizioni C e D all'interno della Petri sono arbitrarie e variano leggermente
 
 \subsection{Tracciabilità}
 \label{sec:123}
-Dopo aver posizionato la droplet di decanolo ed il sale NaCl all'interno della Petri dish, l'utente può far partire la \emph{tracking mode}. In questa modalità la testa del robot viene spostata nel punto di coordinate (0,0), in fondo a sinistra, per far in modo che non interferisca con il riconoscimento visivo. 
-La droplet identificata viene circondata da un contorno verde ed indicato sulla schermata del video il colore riconosciuto. Nel momento in cui si decide di interrompere il programma, se la modalità di registrazione è attiva, appare a video il percorso eseguito dalla droplet indicante la dicitura "BEGIN" per il primo punto in cui è stata individuata, ed "END" per il punto finale di arrivo.   
+Dopo aver posizionato la droplet di decanolo ed il sale NaCl all'interno della Petri dish, l'utente può far partire la \emph{tracking mode}. In questa modalità la testa del robot viene spostata nel punto di coordinate (0,0), in fondo a destra, per far in modo che non interferisca con il riconoscimento visivo. 
+La droplet identificata viene circondata da un contorno verde ed indicato sulla schermata del video il colore riconosciuto. Nel momento in cui si decide di interrompere il programma, se la modalità di registrazione è attiva, appare a video il percorso eseguito dalla droplet, in blu, con la scritta "BEGIN" per il primo punto in cui è stata individuata, ed "END" per il punto finale di arrivo.   
 \begin{figure}[h]
 	\centering
-   		{\includegraphics[width=8cm]{immagini/track.png}}
+   		{\includegraphics[width=8cm]{immagini/track.jpg}}
  	\hspace{2mm}   	
-	{\includegraphics[width=8cm]{immagini/track_path.jpg}}
-	\caption{tracking}
- 	\end{figure}
+		{\includegraphics[width=8cm]{immagini/track_path.jpg}}
+	\caption{tracking mode}
+\end{figure}
 
 
 
-\section{Dati}
-Per trovare la combinazione migliore delle componenti nello spazio degli esperimenti si è applicata la funzione di adattamento per il movimento. Questa descrive la velocità media della droplet durante tutto l'esperimento ed è espressa in $1/s$. La funzione è stata applicata a due ripetizioni di ogni esperimento e la media è stata presa come valore di riferimento. La funzione è definita come:
-\begin{equation*} 
-\cfrac {\sqrt [ 2 ]{ { (A_{ x }-B_{ x }) }^{ 2 }+{ (A_{ y }-B_{ y }) }^{ 2 } } /\quad tempo }{ \sqrt [ 2 ]{ { (C_{ x }-B_{ x }) }^{ 2 }+{ (C_{ y }-B_{ y }) }^{ 2 }}} 
+\section{Funzione \emph{fitness}}
+Per trovare la combinazione migliore delle componenti nello spazio degli esperimenti si è applicata una funzione di adattamento per il movimento. Questa descrive la velocità media della droplet durante tutto l'esperimento in funzione del tempo di percorrenza e della distanza tra il punto di arrivo e il punto in cui viene inserito il sale; è espressa in $1/s$. La funzione è stata applicata a due ripetizioni di ogni esperimento e la media è stata presa come valore di riferimento. La funzione è definita come:
+\begin{equation*} 	
+	\frac { d(A,B)/tempo }{ d(C,B) } 
 \end{equation*}
-\\Dove: $A=(x,y)$ coordinate del primo punto in cui viene individuata la droplet, punto di inizio del percorso
-$B=(x,y)$ coordinate del punto in cui viene inserito il sale NaCl
-$C=(x,y)$ coordinate dell'ultimo punto in cui viene individuata la droplet, punto di fine percorso
+\\dove
+$A=(x,y)$ coordinate del primo punto in cui viene individuata la droplet: punto di inizio del percorso;
+$B=(x,y)$ coordinate del punto in cui viene inserito il sale NaCl;
+$C=(x,y)$ coordinate dell'ultimo punto in cui viene individuata la droplet, punto di fine percorso;
+$d(A,B)$ è la distanza euclidea tra il punto A ed il punto B; $d(C,B)$ è la distanza euclidea tra il punto C ed il punto B; $tempo$ è il tempo impiegato a percorrere la distanza d(A,B).
+Le coordinate raccolte sono nell'unità di misura standard che regola i movimenti della testa del robot lungo gli assi x e z; sono state trasformate in $cm$ calcolando al distanza euclidea tra due punti distanti $1cm$ tra loro.
+\subsection{Gestione della formula}
+Le coordinate dei punti che compongono il percorso della droplet si riferiscono ai centroidi della droplet stessa. I punti A, B, C assieme al tempo sono salvati in un file \emph{.csv} al termine del programma, dopo aver eseguito tutti i 4 passaggi fondamentali e dopo essere entrati in \emph{tracking mode}. Il file prodotto viene preso in input da un altro programma, esterno alla piattaforma robotica, utilizzato solamente per applicare la formula della \emph{fitness} ai dati raccolti. Questo ci permette di avere il valore del rapporto $1/tempo$. Questa formula ci consente di trovare la combinazione migliore di parametri considerando la velocità della droplet e la distanza tra il punto di arrivo e il punto di inserimento del sale. L'obbiettivo è quello di ridurre al minimo questa distanza. Di seguito viene presentata una versione schematizzata dell'ambiente analizzato.
+ \begin{figure}[h]
+	  \includegraphics[scale=0.30]{immagini/schema.png}
+		\centering
+	 \caption{schema dei punti importanti di un esperimento}
+\end{figure} 
+\pagebreak
+\section{Risultati}
+\subsection{pH 11}
+Gli esperimenti costruiti con la soluzione di Acido dacanoico a $pH11$ hanno conferito i risultati migliori di tutto lo spazio multiparametrico analizzato. Tuttavia, in un caso su due, la soluzione 20mM non risulta ottimale. In questo caso infatti la droplet compie un percorso minimo a-direzionale, rimanendo molto vicina al punto di partenza, come mostrato nella figura 4.5. 
+\begin{figure}[h]
+	\centering
+   		{\includegraphics[width=8cm]{immagini/20mMpH11-2.jpg}}
+ 	\hspace{2mm}   	
+		{\includegraphics[width=8cm]{immagini/20mMpH11-1.jpg}}
+	\caption{Acido decanoico 20mM a pH11}
+\end{figure}
+\begin{figure}[h]
+	\centering
+   		{\includegraphics[width=8cm]{immagini/10mMpH11-2.jpg}}
+ 	\hspace{2mm}   	
+		{\includegraphics[width=8cm]{immagini/10mMpH11-1.jpg}}
+	\caption{Acido decanoico 10mM a pH11}
+\end{figure}   
+\begin{figure}[h]
+	\centering
+   		{\includegraphics[width=8cm]{immagini/5mMpH11-2.jpg}}
+ 	\hspace{2mm}   	
+		{\includegraphics[width=8cm]{immagini/5mMpH11-1.jpg}}
+	\caption{Acido decanoico 5mM a pH11}
+\end{figure}
+\pagebreak
+\\Nelle figure 4.6 e 4.7 si possono osservare dei percorsi abbastanza analoghi tra loro, la droplet si avvicina in poco tempo in un punto prossimale al punto in cui il sale è stato inserito.
+La tabella riportata di seguito mostra i risultati della funzione di \emph{fitness} per ognuno dei sei esperimenti. I valori sono stati trovati facendo al media dei risultati delle due ripetizioni.
+\begin{center}
+\begin{tabular}{|l|l|l|r|}
+	\hline
+	mM&20&10&5\\
+	\hline
+	$1/s$&$5,50\times {10}^{7}$&$3,61\times {10}^{8}$&$1,26\times {10}^{9}$\\
+	\hline
+	$time(s)$& 64.25 & 20.64 & 53.67\\
+	\hline
+\end{tabular}
+\end{center}
+\pagebreak
 
+\subsection{pH 12}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nunc orci. Aliquam nec nisl vitae sapien pulvinar dictum quis non urna. Suspendisse at dui a erat aliquam vestibulum. Quisque ultrices pellentesque pellentesque. Pellentesque egestas quam sed blandit tempus. Sed congue nec risus posuere euismod. Maecenas ut lacus id mauris sagittis egestas a eu dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque at ultrices tellus. Ut eu purus eget sem iaculis ultricies sed non lorem. Curabitur gravida dui eget ex vestibulum venenatis. Phasellus gravida tellus velit, non eleifend justo lobortis eget. 
+\begin{figure}[h]
+	\centering
+   		{\includegraphics[width=8cm]{immagini/20mMpH12-1.jpg}}
+ 	\hspace{2mm}   	
+		{\includegraphics[width=8cm]{immagini/20mMpH12-2.jpg}}
+	\caption{Acido decanoico 20mM a pH12}
+\end{figure}
+\begin{figure}[h]
+	\centering
+   		{\includegraphics[width=8cm]{immagini/10mMpH12-2.jpg}}
+ 	\hspace{2mm}   	
+		{\includegraphics[width=8cm]{immagini/10mMpH12-1.jpg}}
+	\caption{Acido decanoico 10mM a pH12}
+\end{figure}   
+\begin{figure}[h]
+	\centering
+   		{\includegraphics[width=8cm]{immagini/5mMpH12-1.jpg}}
+ 	\hspace{2mm}   	
+		{\includegraphics[width=8cm]{immagini/5mMpH12-2.jpg}}
+	\caption{Acido decanoico 5mM a pH12}
+\end{figure}
+\pagebreak
+\\La tabella riportata di seguito mostra i risultati della funzione di \emph{fitness} per ognuno dei sei esperimenti. I valori sono stati trovati facendo al media dei risultati delle due ripetizioni.
+\begin{center}
+\begin{tabular}{|l|l|l|r|}
+	\hline
+	mM&20&10&5\\
+	\hline
+	$1/s$&$1.22\times { 10 }^{ 8 }$&$7,57\times { 10 }^{ 8 }$&$1,07\times { 10 }^{ 8 }$\\
+	\hline
+	$time(s)$& 392.19 & 66.138 & 143.62\\
+	\hline
+\end{tabular}
+\end{center}
+\pagebreak
 
+\subsection{pH 13}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nunc orci. Aliquam nec nisl vitae sapien pulvinar dictum quis non urna. Suspendisse at dui a erat aliquam vestibulum. Quisque ultrices pellentesque pellentesque. Pellentesque egestas quam sed blandit tempus. Sed congue nec risus posuere euismod. Maecenas ut lacus id mauris sagittis egestas a eu dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque at ultrices tellus. Ut eu purus eget sem iaculis ultricies sed non lorem. Curabitur gravida dui eget ex vestibulum venenatis. Phasellus gravida tellus velit, non eleifend justo lobortis eget. 
 
-
-
-
-
+\begin{figure}[h]
+	\centering
+   		{\includegraphics[width=8cm]{immagini/20mMpH13-1.jpg}}
+ 	\hspace{2mm}   	
+		{\includegraphics[width=8cm]{immagini/20mMpH13-2.jpg}}
+	\caption{Acido decanoico 20mM a pH13}
+\end{figure}
+\begin{figure}[h]
+	\centering
+   		{\includegraphics[width=8cm]{immagini/10mMpH13-2.jpg}}
+ 	\hspace{2mm}   	
+		{\includegraphics[width=8cm]{immagini/10mMpH13-1.jpg}}
+	\caption{Acido decanoico 10mM a pH13}
+\end{figure}   
+\begin{figure}[h]
+	\centering
+   		{\includegraphics[width=8cm]{immagini/5mMpH13-1.jpg}}
+ 	\hspace{2mm}   	
+		{\includegraphics[width=8cm]{immagini/5mMpH13-2.jpg}}
+	\caption{Acido decanoico 5mM a pH13}
+\end{figure}
+\pagebreak
+La tabella riportata di seguito mostra i risultati della funzione di \emph{fitness} per ognuno dei sei esperimenti. I valori sono stati trovati facendo al media dei risultati delle due ripetizioni.
+\begin{center}
+\begin{tabular}{|l|l|l|r|}
+	\hline
+	mM&20&10&5\\
+	\hline
+	$1/s$&$5,50\times {10}^{7}$&$3,61\times {10}^{8}$&$1,26\times {10}^{9}$\\
+	\hline
+	$time(s)$& 6.425 & 2.064 & 5.367\\
+	\hline
+\end{tabular}
+\end{center}
+\pagebreak
 
 
 
