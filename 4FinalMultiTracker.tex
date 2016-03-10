@@ -40,7 +40,7 @@ Le posizioni C e D all'interno della Petri sono arbitrarie e variano leggermente
 
 \subsection{Tracciabilità}
 \label{sec:123}
-Dopo aver posizionato la droplet di decanolo ed il sale NaCl all'interno della Petri dish, l'utente può far partire la \emph{tracking mode}. In questa modalità la testa del robot viene spostata nel punto di coordinate (0,0), in fondo a destra, per far in modo che non interferisca con il riconoscimento visivo. 
+Dopo aver posizionato la droplet di decanolo ed il sale NaCl all'interno della Petri dish, l'utente può far partire la \emph{tracking mode}. In questa modalità la testa del robot viene spostata nel punto di coordinate (0,0), in fondo a destra rispetto al video mostrato dalla camera, per far in modo che non interferisca con il riconoscimento visivo. 
 La droplet identificata viene circondata da un contorno verde ed indicato sulla schermata del video il colore riconosciuto. Nel momento in cui si decide di interrompere il programma, se la modalità di registrazione è attiva, appare a video il percorso eseguito dalla droplet, in blu, con la scritta "BEGIN" per il primo punto in cui è stata individuata, ed "END" per il punto finale di arrivo.   
 \begin{figure}[h]
 	\centering
@@ -49,29 +49,33 @@ La droplet identificata viene circondata da un contorno verde ed indicato sulla 
 		{\includegraphics[width=8cm]{immagini/track_path.jpg}}
 	\caption{tracking mode}
 \end{figure}
-
-
-
+\pagebreak
 \section{Funzione \emph{fitness}}
-Per trovare la combinazione migliore delle componenti nello spazio degli esperimenti si è applicata una funzione di adattamento per il movimento. Questa descrive la velocità media della droplet durante tutto l'esperimento in funzione del tempo di percorrenza e della distanza tra il punto di arrivo e il punto in cui viene inserito il sale; è espressa in $1/s$. La funzione è stata applicata a due ripetizioni di ogni esperimento e la media è stata presa come valore di riferimento. La funzione è definita come:
-\begin{equation*} 	
-	\frac { d(A,B)/tempo }{ d(C,B) } 
-\end{equation*}
+Per trovare la combinazione ``migliore''  delle componenti nello spazio degli esperimenti si è applicata una funzione di adattamento per il movimento. Questa descrive il coefficiente di precisione con cui la droplet si avvicina al punto in cui è stato inserito il sale, ``analizzato in funzione del tempo'' impiegato a percorrere il tracciato. La funzione è definita come:
+\begin{equation} 	
+	k = \frac { d(C,B) }{ d(A,C) }  \quad con \underset { d(C,B)\rightarrow 0 }{ lim } k=0
+\end{equation}
 \\dove
 $A=(x,y)$ coordinate del primo punto in cui viene individuata la droplet: punto di inizio del percorso;
 $B=(x,y)$ coordinate del punto in cui viene inserito il sale NaCl;
 $C=(x,y)$ coordinate dell'ultimo punto in cui viene individuata la droplet, punto di fine percorso;
-$d(A,B)$ è la distanza euclidea tra il punto A ed il punto B; $d(C,B)$ è la distanza euclidea tra il punto C ed il punto B; $tempo$ è il tempo impiegato a percorrere la distanza d(A,B).
-Le coordinate raccolte sono nell'unità di misura standard che regola i movimenti della testa del robot lungo gli assi x e z; sono state trasformate in $cm$ calcolando al distanza euclidea tra due punti distanti $1cm$ tra loro.
+$d(C,B)$ è la distanza euclidea tra il punto C ed il punto B; $d(A,C)$ è la distanza euclidea tra il punto A ed il punto C.
+Da $(4.1)$ si trova il coefficiente migliore in relazione al tempo $t$ di percorrenza della $d(A,C)$. 
+\\La funzione è stata applicata a due ripetizioni di ogni esperimento e la media dei due coefficienti è stata presa come valore di riferimento. Il coefficiente medio viene successivamente moltiplicato per il tempo medio, tra le due ripetizioni, impiegato. Tra le soluzioni con lo stesso $pH$ e molarità differente $X_{mol}$, si definisce ``migliore'' quella con il valore $k^*$ minore. 
+\begin{equation} 	
+	{ { k }_{ Xmol }^{ * } }=\quad { \overline { k }  }_{ Xmol }\quad \times \quad \overline { t } _{ Xmol }
+\end{equation}
+
 \subsection{Gestione della formula}
-Le coordinate dei punti che compongono il percorso della droplet si riferiscono ai centroidi della droplet stessa. I punti A, B, C assieme al tempo sono salvati in un file \emph{.csv} al termine del programma, dopo aver eseguito tutti i 4 passaggi fondamentali e dopo essere entrati in \emph{tracking mode}. Il file prodotto viene preso in input da un altro programma, esterno alla piattaforma robotica, utilizzato solamente per applicare la formula della \emph{fitness} ai dati raccolti. Questo ci permette di avere il valore del rapporto $1/tempo$. Questa formula ci consente di trovare la combinazione migliore di parametri considerando la velocità della droplet e la distanza tra il punto di arrivo e il punto di inserimento del sale. L'obbiettivo è quello di ridurre al minimo questa distanza. Di seguito viene presentata una versione schematizzata dell'ambiente analizzato.
+Le coordinate dei punti che compongono il percorso della droplet si riferiscono ai centroidi della droplet stessa. I punti A, B, C assieme al tempo sono salvati in un file \emph{.csv} al termine del programma, dopo aver eseguito tutti i 4 passaggi fondamentali e dopo essere entrati in \emph{tracking mode}. Il file prodotto viene preso in input da un altro programma, esterno alla piattaforma robotica, utilizzato solamente per applicare la formula della \emph{fitness} ai dati raccolti. Questo ci permette di avere il valore del coefficiente migliore $k^*$. Questa formula ci consente di trovare la combinazione migliore di parametri considerando la velocità della droplet e la distanza tra il punto di arrivo e il punto di inserimento del sale. L'obbiettivo è quello di ridurre al minimo questa distanza. Di seguito viene presentata una versione schematizzata dell'ambiente analizzato.
  \begin{figure}[h]
 	  \includegraphics[scale=0.30]{immagini/schema.png}
 		\centering
-	 \caption{schema dei punti importanti di un esperimento}
+	 \caption{schema di un esperimento e degli elementi analizzati}
 \end{figure} 
 \pagebreak
 \section{Risultati}
+La soluzione di acido decanoico presente nella Petri prima dell'inizio dell'esperimento si presenta sottoforma di ione decanoato con carica negativa. Per disciogliere 20mM di acido decanoico in $1L$ di acqua abbiamo bisogno di aumentare il pH altrimenti l'acido resterebbe in forma solida. I risultati sono stati suddivisi per classi di $pH$ per rendere più semplice la lettura dei dati.
 \subsection{pH 11}
 Gli esperimenti costruiti con la soluzione di Acido dacanoico a $pH11$ hanno conferito i risultati migliori di tutto lo spazio multiparametrico analizzato. Tuttavia, in un caso su due, la soluzione 20mM non risulta ottimale. In questo caso infatti la droplet compie un percorso minimo a-direzionale, rimanendo molto vicina al punto di partenza, come mostrato nella figura 4.5. 
 \begin{figure}[h]
@@ -81,6 +85,7 @@ Gli esperimenti costruiti con la soluzione di Acido dacanoico a $pH11$ hanno con
 		{\includegraphics[width=8cm]{immagini/20mMpH11-1.jpg}}
 	\caption{Acido decanoico 20mM a pH11}
 \end{figure}
+\\Nelle soluzioni con molarità $10mM$ e $5mM$ la droplet compie dei percorsi più lunghi, arrivando molto vicina al punto di inserimento del sale. Tutti i cammini mostrano una agitazione iniziale nel primo punto in cui la droplet viene riconosciuta. Questo movimento oscillatorio può essere dovuto alla prima interazione tra il sale ed le linee di confine della droplet.
 \begin{figure}[h]
 	\centering
    		{\includegraphics[width=8cm]{immagini/10mMpH11-2.jpg}}
@@ -98,21 +103,24 @@ Gli esperimenti costruiti con la soluzione di Acido dacanoico a $pH11$ hanno con
 \pagebreak
 \\Nelle figure 4.6 e 4.7 si possono osservare dei percorsi abbastanza analoghi tra loro, la droplet si avvicina in poco tempo in un punto prossimale al punto in cui il sale è stato inserito.
 La tabella riportata di seguito mostra i risultati della funzione di \emph{fitness} per ognuno dei sei esperimenti. I valori sono stati trovati facendo al media dei risultati delle due ripetizioni.
+
 \begin{center}
-\begin{tabular}{|l|l|l|r|}
-	\hline
-	mM&20&10&5\\
-	\hline
-	$1/s$&$5,50\times {10}^{7}$&$3,61\times {10}^{8}$&$1,26\times {10}^{9}$\\
-	\hline
-	$time(s)$& 64.25 & 20.64 & 53.67\\
-	\hline
+\begin{tabular}{lllllllll}
+pH & mol (mM) & \# esp & k           & k medio     & tempo (s) & tempo medio (s) & k* ∀ molarità & k* ∀ pH     \\
+11 & 5            & 1              & 0,180 & 0,215 & 87        & 53              & 11,413   &             \\
+11 & 5             & 2              & 0,250 &             & 19        &                 &               &             \\
+11 & 10            & 1              & 0,530 & 0,302 & 135       & 88              & 26,612   & 11,413 \\
+11 & 10            & 2              & 0,074 &             & 41        &                 &               &             \\
+11 & 20            & 1              & 0,453 & 1,991 & 205       & 166,5           & 331,594   &             \\
+11 & 20            & 2              & 3,529 &             & 128       &                 &               &            
+
 \end{tabular}
+%\caption{Tabella risultati delle soluzioni a pH11}
 \end{center}
 \pagebreak
 
 \subsection{pH 12}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nunc orci. Aliquam nec nisl vitae sapien pulvinar dictum quis non urna. Suspendisse at dui a erat aliquam vestibulum. Quisque ultrices pellentesque pellentesque. Pellentesque egestas quam sed blandit tempus. Sed congue nec risus posuere euismod. Maecenas ut lacus id mauris sagittis egestas a eu dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque at ultrices tellus. Ut eu purus eget sem iaculis ultricies sed non lorem. Curabitur gravida dui eget ex vestibulum venenatis. Phasellus gravida tellus velit, non eleifend justo lobortis eget. 
+Tutte le soluzioni con $pH12$ portano a risultati simili. Si osserva che la droplet non compie uno spostamento lineare determinante.   
 \begin{figure}[h]
 	\centering
    		{\includegraphics[width=8cm]{immagini/20mMpH12-1.jpg}}
@@ -124,7 +132,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nunc orci. Al
 	\centering
    		{\includegraphics[width=8cm]{immagini/10mMpH12-2.jpg}}
  	\hspace{2mm}   	
-		{\includegraphics[width=8cm]{immagini/10mMpH12-1.jpg}}
+		{\includegraphics[width=8cm]{immagini/10mMpH12-1.png}}
 	\caption{Acido decanoico 10mM a pH12}
 \end{figure}   
 \begin{figure}[h]
@@ -137,20 +145,22 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nunc orci. Al
 \pagebreak
 \\La tabella riportata di seguito mostra i risultati della funzione di \emph{fitness} per ognuno dei sei esperimenti. I valori sono stati trovati facendo al media dei risultati delle due ripetizioni.
 \begin{center}
-\begin{tabular}{|l|l|l|r|}
-	\hline
-	mM&20&10&5\\
-	\hline
-	$1/s$&$1.22\times { 10 }^{ 8 }$&$7,57\times { 10 }^{ 8 }$&$1,07\times { 10 }^{ 8 }$\\
-	\hline
-	$time(s)$& 392.19 & 66.138 & 143.62\\
-	\hline
+\begin{tabular}{lllllllll}
+pH & mol (mM) & \# esp & k           & k medio     & tempo (s) & tempo medio (s) & k* ∀ molarità & k* ∀ pH     \\
+12 & 5             & 1              & 1,837 & 1,170 & 214       & 143,5           & 168,026    \\
+12 & 5             & 2              & 0,504 &             & 73        &                 &               &             \\
+12 & 10            & 1              & 0,566 & 0,403 & 85        & 65,5            & 26,443   & 26,443 \\
+12 & 10            & 2              & 0,241 &             & 46        &                 &               &             \\
+12 & 20            & 1              & 4,075 & 3,407 & 77        & 84,5            & 287,957   &             \\
+12 & 20            & 2              & 2,740 &             & 92        &                 &               &            
 \end{tabular}
 \end{center}
-\pagebreak
 
+La condizione di stabilità della droplet può essere dovuta a due fattori estranei al sistema. Infatti la droplet può essere stata influenzata dai moti convettivi creati dall'inserimento della punta della siringa all'interno della superficie dell'acido decanoico nella Petri o dagli spostamenti di aria attorno al robot. Tuttavia, queste ipotesi non possono essere confermate a causa del basso numero di ripetizioni dell'esperimento. 
+
+\pagebreak
 \subsection{pH 13}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nunc orci. Aliquam nec nisl vitae sapien pulvinar dictum quis non urna. Suspendisse at dui a erat aliquam vestibulum. Quisque ultrices pellentesque pellentesque. Pellentesque egestas quam sed blandit tempus. Sed congue nec risus posuere euismod. Maecenas ut lacus id mauris sagittis egestas a eu dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque at ultrices tellus. Ut eu purus eget sem iaculis ultricies sed non lorem. Curabitur gravida dui eget ex vestibulum venenatis. Phasellus gravida tellus velit, non eleifend justo lobortis eget. 
+Come per le soluzioni di molarità $20mM$ si osserva, anche in questo caso, che la droplet non compie un lungo spostamento. Questo può essere dovuto all'estrema densità della soluzione 
 
 \begin{figure}[h]
 	\centering
@@ -174,20 +184,21 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nunc orci. Al
 	\caption{Acido decanoico 5mM a pH13}
 \end{figure}
 \pagebreak
+Gli esperimenti a $pH$ maggiore hanno dimostrato che la droplet si muove con più facilità e percorrendo un percorso più lineare a molarità minori. 
 La tabella riportata di seguito mostra i risultati della funzione di \emph{fitness} per ognuno dei sei esperimenti. I valori sono stati trovati facendo al media dei risultati delle due ripetizioni.
 \begin{center}
-\begin{tabular}{|l|l|l|r|}
-	\hline
-	mM&20&10&5\\
-	\hline
-	$1/s$&$5,50\times {10}^{7}$&$3,61\times {10}^{8}$&$1,26\times {10}^{9}$\\
-	\hline
-	$time(s)$& 6.425 & 2.064 & 5.367\\
-	\hline
+\begin{tabular}{lllllllll}
+pH & mol (mM) & \# esp & k      & k medio & tempo (s) & tempo medio (s) & k* ∀ molarità & k* ∀ pH \\
+13 & 5        & 1      & 0,175  & 0,325   & 63        & 59              & 19,182        &         \\
+13 & 5        & 2      & 0,474  &         & 55        &                 &               &         \\
+13 & 10       & 1      & 0,876  & 0,607   & 61        & 82              & 49,820        & 19,182  \\
+13 & 10       & 2      & 0,338  &         & 103       &                 &               &         \\
+13 & 20       & 1      & 31,231 & 16,351  & 70        & 74              & 1210,032      &         \\
+13 & 20       & 2      & 1,472  &         & 78        &                 &               &     
 \end{tabular}
 \end{center}
-\pagebreak
-
+In tutti i casi analizzati si è osservato, una volta che la droplet si avvicina al punto in cui è stato inserito il sale, che questa compie un movimento locale casuale ed oscillatorio.
+Inoltre è stato notato che la droplet non risponde con un movimento chemiotattico immediatamente dopo l'aggiunta del sale. Probabilmente questo periodo di latenza 
 
 
 
