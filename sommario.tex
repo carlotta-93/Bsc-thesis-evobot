@@ -5,8 +5,7 @@
 Gli studi presentati in questa tesi sono stati svolti presso il laboratorio di Biologia Artificiale del CIBIO - Centre for Integrative Biology dell'Università di Trento che fa parte del progetto EVOBLISS. Il progetto EVOBLISS  è un progetto di ricerca europeo. A questo progetto partecipano i laboratori di altre cinque università europee. Il progetto EVOBLISS combina gli approcci scientifici della robotica, dell'intelligenza artificiale, della chimica e della microbiologia. Lo scopo finale è quello di produrre una piattaforma robotica facilmente utilizzabile e personalizzabile per l'evoluzione artificiale di nuovi materiali. 
 \\Il prodotto su cui si è lavorato è EvoBot, un robot in grado di gestire liquidi e di fornire riscontri in tempo reale sui sistemi da esso stesso creati. Lo scopo del progetto è quello di riprodurre caratteristiche base degli organismi viventi, nello specifico ci si è soffermati sul movimento, studiato in un sistema chimico. Varie sostanze chimiche vengono utilizzate in strutture che si comportano come sistemi viventi. I sistemi vengono alimentati con opportuni nutrienti e viene osservato il loro comportamento, nello specifico il movimento, caratteristica fondamentale di un organismo vivente. 
 \\Lo studio dei risultati è stato eseguito implementando un software di computer vision e con l'aiuto di EvoBot per l'esecuzione vera e propria degli esperimenti. La particolarità di EvoBot sta nel permettere all'utente un'interazione continua ed in tempo reale con l'esperimento in corso.\cite{introd-robot} Inoltre utilizzare un robot per la gestione degli esperimenti ci ha permesso di diminuire, quasi annullare, l'incertezza e la variazione tra gli esperimenti causata dalla mano umana. 
-\subsection{Il robot}
-EvoBot è un robot che unisce elementi delle stampanti 3D con quelli della robotica modulare per fornire a chimici e ricercatori nel campo della vita (a livello chimico) artificiale, uno strumento estendibile basato su una piattaforma open source di robotica per il trattamento di liquidi.
+\\EvoBot è un robot che unisce elementi delle stampanti 3D con quelli della robotica modulare per fornire a chimici e ricercatori nel campo della vita (a livello chimico) artificiale, uno strumento estendibile basato su una piattaforma open source di robotica per il trattamento di liquidi.
 \begin{wrapfigure}{r}{0.5\textwidth}
 \begin{center}
 	  \includegraphics[width=0.48\textwidth]{immagini/observational-layer.png}
@@ -36,13 +35,14 @@ Una delle proprietà fondamentali degli organismi viventi è l'abilità di senti
 Lo spazio multiparametrico utilizzato ha previsto l'esecuzione di due ripetizioni di ognuno dei nove esperimenti composti come in tabella 1.
 
 \section{Tecniche utilizzate}
-Analizzando i diversi comportamenti della droplet nei vari esperimenti eseguiti e tenendo in considerazione che l'obiettivo di tale studio è quello di fare in modo che questa si muova velocemente e in maniera precisa lungo un percorso ipotizzato, si è cercata la combinazione ``migliore" dei parametri sperimentali che permettesse alla droplet di avvicinarsi il più possibile e nel minor tempo al punto in cui il sale è stato posto. Lo studio di questo movimento di chemiotassi, ci aiuterà a comprendere e a riprodurre le dinamiche di movimento delle cellule viventi. 
+Analizzando i diversi comportamenti della droplet nei vari esperimenti eseguiti e tenendo in considerazione che l'obiettivo di tale studio è quello di fare in modo che questa si muova velocemente e in maniera precisa lungo un percorso ipotizzato, si è cercata la combinazione ``migliore" dei parametri sperimentali che permettesse alla droplet di avvicinarsi il più possibile e nel minor tempo al punto in cui il sale è stato posto. 
 \begin{wrapfigure}{r}{0.5\textwidth}
 \begin{center}
 	  \includegraphics[width=0.3\textwidth]{immagini/exp1.jpg}
 \end{center}
 	 \caption{experimental layout}
 \end{wrapfigure} 
+Lo studio di questo movimento di chemiotassi, ci aiuterà a comprendere e a riprodurre le dinamiche di movimento delle cellule viventi. 
 L'esperimento precedentemente descritto, è stato eseguito per mezzo del programma appositamente sviluppato, utilizzando le API di EvoBot e sfruttando funzioni avanzate della libreria OpenCV. 
 Per portare a termine l'intero esperimento, occorre completare tre fasi: preparazione, raccolta dati, elaborazione dati. 
 Nella preparazione si utilizza la disposizione come in Figura 2 e un protocollo di passaggi fondamentali.
