@@ -2,7 +2,7 @@
 %\vspace{0.5cm}
 
 \label{cha:789}
-EvoBot è un robot che unisce elementi delle stampanti 3D con quelli della robotica modulare per fornire a chimici, microbiologi e ricercatori nel campo della vita (a livello chimico) artificiale, uno strumento economico ed estendibile basato su una piattaforma open source di robotica per il trattamento di liquidi. La particolarità di EvoBot sta nell'interazione continua ed in tempo reale dell'utente con l'esperimento in corso.\cite{introd-robot} Inoltre utilizzare un robot per la gestione degli esperimenti ci ha permesso di diminuire, quasi annullare, l'incertezza e la variazione tra gli esperimenti causata dalla mano umana. 
+EvoBot è un robot che unisce elementi delle stampanti 3D con quelli della robotica modulare per fornire a chimici, microbiologi e ricercatori nel campo della vita (a livello chimico) artificiale, uno strumento economico ed estendibile basato su una piattaforma open source di robotica per il trattamento di liquidi. La particolarità di EvoBot sta nel permettere all'utente un'interazione continua ed in tempo reale con l'esperimento in corso.\cite{introd-robot} Inoltre utilizzare un robot per la gestione degli esperimenti ci ha permesso di diminuire, quasi annullare, l'incertezza e la variazione tra gli esperimenti causata dalla mano umana. 
 \\Come le comuni stampanti 3D,  questo robot è composto da una componente hardware guidata da una parte software. 
 
 \section{La componente hardware}
@@ -16,7 +16,7 @@ A livello meccanico, invece, è strutturato in tre strati: \emph{actuation layer
 	\end{figure} 
 
 \pagebreak
-Il secondo strato è quello degli esperimenti: \emph{experimental layer}. Questo strato è essenzialmente composto da una cornice in alluminio, identica a quella della struttura esterna del robot, che racchiude una piastra di vetro. Su questo strato possono essere posti i recipienti richiesti dagli specifici esperimenti. Una fessura rettangolare ad uno degli angoli permette le manovre di sostituzione dei recipienti in uso. La sua funzionalità verrà sfruttata in futuro creando un distributore automatico di  \emph{Petri dish} da posizionarvi all'interno.
+Il secondo strato è quello degli esperimenti: \emph{experimental layer}. Questo strato è essenzialmente composto da una cornice in alluminio, identica a quella della struttura esterna del robot, che racchiude una superficie di vetro. Su questo strato possono essere posti i recipienti richiesti dagli specifici esperimenti. Una fessura rettangolare ad uno degli angoli permette le manovre di sostituzione dei recipienti in uso. La sua funzionalità verrà sfruttata in futuro creando un distributore automatico di  \emph{Petri dish} da posizionarvi all'interno.
 	\begin{figure}[h]
 	  \includegraphics[scale=0.40]{immagini/experiment_layer.png}
 		\centering 
@@ -53,7 +53,7 @@ Il modulo siringa ha due gradi di movimento verticale. Ogni modulo è composto d
 
 \pagebreak 
 \section{La componente software}
-\label{sec:123}
+\label{sec:123} 
 La finalità della componente software è quella di fornire all'utente finale un'interfaccia facilmente programmabile per guidare il robot. Il software è suddiviso in una \emph{host side} e in una \emph{robot side}. La prima comunica con la seconda attraverso una connessione USB. La \emph{robot side} è una versione modificata del firmware Marlin usato nei programmi opensource delle stampanti 3D. 
 \\Il linguaggio di programmazione utilizzato per la stesura delle API e dei programmi successivi è Python. La suite software offerta al momento dell'installazione è composta da tre elementi:
 un programma di \emph{computer vision} per la calibrazione del robot, un'interfaccia grafica per il controllo manuale del robot ed un esempio di programma, sviluppato utilizzando le API, per l'identificazione delle componenti di uno specifico esperimento.
@@ -72,10 +72,7 @@ Avvenuta la calibrazione, si hanno a disposizione le matrici di ogni siringa da 
 
 \subsection{L'identificazione delle droplet}
 \label{sec:02123}
-Una delle finalità prioritarie del progetto è l'identificazione di gocce, \emph{droplet}, per trovare l'area, il colore, il numero, la forma e, più importante, per tracciarne il movimento.
-%Come spiegato nella sezione 1.2.1le droplet.... aggiungere minchiate
-
-La componente principale utilizzata per l'identificazione è la libreria OpenCV (Open Source Computer Vision Library)\cite{opencv} che include diverse funzioni ed algoritmi di \emph{computer vision}. 
+Una delle finalità prioritarie del progetto è l'identificazione di gocce, \emph{droplet}, per trovare l'area, il colore, il numero, la forma e, più importante, per tracciarne il movimento. La componente principale utilizzata per l'identificazione è la libreria OpenCV (Open Source Computer Vision Library)\cite{opencv} che include diverse funzioni ed algoritmi di \emph{computer vision}. 
 
 
 
