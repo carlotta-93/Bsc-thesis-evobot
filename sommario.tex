@@ -1,8 +1,9 @@
 \chapter*{Sommario} % senza numerazione
 \label{sommario}
-\addcontentsline{toc}{chapter}{Sommario} % da aggiungere comunque all'indice
-\section{Contesto}
-Gli studi presentati in questa tesi sono stati svolti presso il laboratorio di Biologia Artificiale del CIBIO - Centre for Integrative Biology dell'Università di Trento che partecipa al progetto EVOBLISS: un progetto di ricerca europeo a cui collaborano anche i laboratori di altre cinque università europee. Questo progetto combina gli approcci scientifici della robotica, dell'intelligenza artificiale, della chimica e della microbiologia. Lo scopo finale è quello di produrre una piattaforma robotica facilmente utilizzabile e personalizzabile per l'evoluzione artificiale di nuovi materiali. 
+\addcontentsline{toc}{chapter}{Sommario}% da aggiungere comunque all'indice
+
+\textbf{Contesto}
+\\Gli studi presentati in questa tesi sono stati svolti presso il laboratorio di Biologia Artificiale del CIBIO - Centre for Integrative Biology dell'Università di Trento che partecipa al progetto EVOBLISS: un progetto di ricerca europeo a cui collaborano anche i laboratori di altre cinque università europee. Questo progetto combina gli approcci scientifici della robotica, dell'intelligenza artificiale, della chimica e della microbiologia. Lo scopo finale è quello di produrre una piattaforma robotica facilmente utilizzabile e personalizzabile per l'evoluzione artificiale di nuovi materiali. 
 \\Il prodotto su cui si è lavorato è EvoBot, un robot in grado di gestire liquidi e di fornire riscontri in tempo reale su sistemi da esso stesso creati. Lo scopo del progetto è quello di riprodurre caratteristiche base degli organismi viventi, nello specifico ci si è soffermati sul movimento, studiato in un sistema chimico. Varie sostanze chimiche vengono utilizzate in strutture che si comportano come sistemi viventi. I sistemi vengono alimentati con opportuni nutrienti e viene osservato il loro comportamento, nello specifico il movimento, caratteristica fondamentale di un organismo vivente. 
 \\Lo studio dei risultati è stato eseguito per mezzo di un software di computer vision con l'ausilio di EvoBot per l’esecuzione vera e propria degli esperimenti. La particolarità di EvoBot sta nel permettere all'utente un'interazione continua ed in tempo reale con l'esperimento in corso.\cite{introd-robot} Inoltre, utilizzare un robot per la gestione degli esperimenti ha permesso di diminuire, quasi annullare, l'incertezza e la variazione tra gli esperimenti causata dalla manualità. 
 \\EvoBot è un robot che unisce elementi delle stampanti 3D con quelli della robotica modulare per fornire a chimici e a ricercatori nel campo della vita (a livello chimico) artificiale, uno strumento estendibile basato su una piattaforma open source di robotica per il trattamento di liquidi.
@@ -12,13 +13,11 @@ Gli studi presentati in questa tesi sono stati svolti presso il laboratorio di B
 \end{center}
 	 \caption{La struttura completa del robot}
 	\end{wrapfigure} 
-\\Il robot, come schematizzato in Figura 1, è composto da tre strati: dal basso si ha lo strato dell'\emph{osservazione}, all'interno del quale è posta una webcam statica utilizzata sia per la registrazione degli esperimenti, sia per l'interazione con il robot. Il secondo strato, degli \emph{esperimenti}, è composto da una superficie di vetro trasparente sulla quale vengono sistemati i recipienti richiesti dagli specifici esperimenti. L'ultimo strato, lo strato dell'\emph{attuazione} è composto dalla testa del robot. Questa struttura si muove a livello orizzontale lungo il piano. La testa è composta da circuiti stampati costituiti da connettori a molla per l'inserimento di moduli specifici. Ad oggi esiste soltanto il modulo siringa ma si prevede nel breve futuro, la costruzione di altri moduli come sensori di pH e di temperatura. 
+Il robot, come schematizzato in Figura 1, è composto da tre strati: dal basso si ha lo strato dell'\emph{osservazione}, all'interno del quale è posta una webcam statica utilizzata sia per la registrazione degli esperimenti, sia per l'interazione con il robot. Il secondo strato, degli \emph{esperimenti}, è composto da una superficie di vetro trasparente sulla quale vengono sistemati i recipienti richiesti dagli specifici esperimenti. L'ultimo strato, lo strato dell'\emph{attuazione} è composto dalla testa del robot. Questa struttura si muove a livello orizzontale lungo il piano. La testa è composta da circuiti stampati costituiti da connettori a molla per l'inserimento di moduli specifici. Ad oggi esiste soltanto il modulo siringa ma si prevede nel breve futuro, la costruzione di altri moduli come sensori di pH e di temperatura. 
 \\Il modulo siringa ha due gradi di movimento verticale. Ogni modulo è composto di un motore passo-passo lineare per il movimento dello stantuffo, \emph{plunger}, e di un meccanismo a rocchetto e cremagliera con un secondo motore passo-passo per il movimento del corpo della siringa. La siringa può essere facilmente sostituita dando all'utente l'opportunità di utilizzare siringhe con specifiche differenti in base alle necessità del singolo esperimento. Le siringhe sono la componente di EvoBot che gli permette la gestione di sostanze liquide. 
 \\Il robot può essere controllato manualmente o con programmi appositamente sviluppati con le API messe a disposizione da EvoBot. Per controllare manualmente EvoBot si utilizza Printrun \cite{printrun}, una \emph{3D printing host suite}  opensource, con la quale, attraverso dei codici G standard, si controlla il movimento della testa del robot e con dei codici M speciali si controlla il movimento delle siringhe e degli stantuffi.
 
-\section{L'esperimento}
-Una delle proprietà fondamentali degli organismi viventi è l'abilità di sentire e rispondere ai cambiamenti dell'ambiente tramite il movimento. Una cellula che percepisce delle molecole solubili può muoversi lungo il gradiente di concentrazione creato da queste fino a raggiungere la sorgente oppure allontanarsi da questa nel caso in cui le sostanze rilasciate siano repellenti o tossine. Il movimento preso in analisi è un movimento di \emph{chemiotassi}. La \emph{chemiotassi} può essere di tipo positivo in caso di avvicinamento alla sorgente e di tipo negativo in caso di allontanamento. Lo studio è stato svolto sul movimento chemiotattico positivo promosso da una \emph{droplet} di decanolo in soluzione acquosa di Acido decanoico $(CH_{3}(CH_{2})_8COOH)$ lungo il gradiente di concentrazione creato dall'aggiunta di Cloruro di sodio. Il movimento di auto-avanzamento di oggetti non biologici simula il comportamento chemiotattico di cellule viventi. 
-\\Una \emph{droplet} posizionata sulla superficie di un substrato, può muoversi quando la superficie sottostante cambia il proprio motivo in modo asimmetrico creando una differenza nella tensione interfacciale tra il margine anteriore e il margine posteriore della droplet. 
+\textbf{L'esperimento}
 \begin{wraptable}{r}{0.5\textwidth}
 \caption{Spazio multiparametrico degli esperimenti}
 \begin{center}
@@ -30,17 +29,21 @@ Una delle proprietà fondamentali degli organismi viventi è l'abilità di senti
 \end{tabular}
 \end{center}
 \end{wraptable}
-\\Inoltre una \emph{droplet} può rompere la simmetria attraverso una reazione chimica accoppiata che avviene all'interfaccia tra la droplet e la soluzione circostante. La reazione chimica produce una rottura della simmetria dovuta all'accumulo e al rilascio di prodotti che inducono la droplet a muoversi attraverso la soluzione acquosa.\cite{selfpropelled}
-\\In particolare, e' stata analizzata la dipendenza parametrica della risposta chemiotattica della droplet al variare della concentrazione e del pH di Sodio Decanoato in rapporto alla forza del gradiente di concetrazione di $NaCl$ $3.5M$. 
+Una delle proprietà fondamentali degli organismi viventi è l'abilità di sentire e rispondere ai cambiamenti dell'ambiente tramite il movimento. 
+Una cellula che percepisce delle molecole solubili può muoversi lungo il gradiente di concentrazione creato da queste fino a raggiungere la sorgente oppure allontanarsi da questa nel caso in cui le sostanze rilasciate siano repellenti o tossine.
+Il movimento preso in analisi è un movimento di \emph{chemiotassi}. La \emph{chemiotassi} può essere di tipo positivo in caso di avvicinamento alla sorgente e di tipo negativo in caso di allontanamento. Lo studio è stato svolto sul movimento chemiotattico positivo promosso da una \emph{droplet} di decanolo in soluzione acquosa di Acido decanoico $(CH_{3}(CH_{2})_8COOH)$ lungo il gradiente di concentrazione creato dall'aggiunta di Cloruro di sodio. Il movimento di auto-avanzamento di oggetti non biologici simula il comportamento chemiotattico di cellule viventi. 
+\\Una \emph{droplet} posizionata sulla superficie di un substrato, può muoversi quando la superficie sottostante cambia il proprio motivo in modo asimmetrico creando una differenza nella tensione interfacciale tra il margine anteriore e il margine posteriore della droplet. 
+Inoltre una \emph{droplet} può rompere la simmetria attraverso una reazione chimica accoppiata che avviene all'interfaccia tra la droplet e la soluzione circostante. La reazione chimica produce una rottura della simmetria dovuta all'accumulo e al rilascio di prodotti che inducono la droplet a muoversi attraverso la soluzione acquosa.\cite{selfpropelled}
+\\In particolare, e' stata analizzata la dipendenza parametrica della risposta chemiotattica della droplet al variare della concentrazione e del pH di Sodio Decanoato in rapporto alla forza del gradiente di concentrazione di $NaCl$ $3.5M$. 
 Lo spazio multiparametrico utilizzato ha previsto l'esecuzione di ripetizioni di ognuno dei nove esperimenti composti come in tabella 1.
 
-\section{Tecniche utilizzate}
-Analizzando i diversi comportamenti della droplet nei vari esperimenti eseguiti e tenendo in considerazione che l'obiettivo di tale studio è quello di fare in modo che questa si muova velocemente e in maniera precisa lungo un percorso ipotizzato, si è cercata la combinazione ``migliore" dei parametri sperimentali che permettesse alla droplet di avvicinarsi il più possibile e nel minor tempo al punto in cui il sale è stato posto. 
+\textbf{Tecniche utilizzate}
+\\Analizzando i diversi comportamenti della droplet nei vari esperimenti eseguiti e tenendo in considerazione che l'obiettivo di tale studio è quello di fare in modo che questa si muova velocemente e in maniera precisa lungo un percorso ipotizzato, si è cercata la combinazione ``migliore" dei parametri sperimentali che permettesse alla droplet di avvicinarsi il più possibile e nel minor tempo al punto in cui il sale è stato posto. 
 \begin{wrapfigure}{r}{0.5\textwidth}
 \begin{center}
 	  \includegraphics[width=0.3\textwidth]{immagini/exp1.jpg}
 \end{center}
-	 \caption{experimental layout}
+	 \caption{Disposizione dell'esperimento}
 \end{wrapfigure} 
 Lo studio di questo movimento di chemiotassi, ci aiuterà a comprendere e a riprodurre le dinamiche di movimento delle cellule viventi. 
 L'esperimento precedentemente descritto, è stato eseguito per mezzo del programma appositamente sviluppato, utilizzando le API di EvoBot e sfruttando funzioni avanzate della libreria OpenCV. 
@@ -62,9 +65,10 @@ I file prodotti durante la raccolta dati, vengono successivamente presi in caric
 	k := \frac { d(C,B) }{ d(A,C) }
 \end{equation}
 Dove A rappresenta il punto in cui la droplet viene trovata all'inizio del tracking, B quello in cui viene posizionato il sale, C dove la droplet si trova ad esperimento concluso, ed infine $d$ calcola la distanza euclidea tra i punti in questione. 
-\\Possiamo assumere che più $d(C,B)$ tende a zero, più l'esperimento è preciso; da questo si evince che avere un $k$ tendente a zero è indice di successo. Una volta ottenuti tutti i $k$, mantenendo costante il $pH$ e le molarità, si vanno a calcolare tutti i $k$ medio per ogni singolo ambiente. L'ambiente rappresentato dal minor $k$ medio è quello che permette alla droplet di raggiungere il sale in maniera precisa e veloce. 
-\section{Risultati raggiunti}
-I dati hanno dimostrato che nelle soluzioni $10mM$ e $5mM$ la droplet compie dei percorsi più lunghi, arrivando molto vicina al punto di inserimento del sale. Tuttavia, nelle soluzioni $20mM$ si osservano dei movimenti più brevi, come se la droplet facesse fatica a riconoscere il gradiente del sale compiendo un movimento minimo. Bisogna tenere in considerazione che questo movimento può essere influenzato da flussi di aria capaci di creare dei moti convettivi all'interno del sistema. I moti possono agire come forza contraria alla direzione del movimento. 
+\\Possiamo assumere che più $d(C,B)$ tende a zero, più l'esperimento è preciso; da questo si evince che avere un $k$ tendente a zero è indice di successo. Una volta ottenuti tutti i $k$, mantenendo costante il $pH$ e le molarità, si vanno a calcolare tutti i $k$ medio per ogni singolo ambiente. L'ambiente rappresentato dal minor $k$ medio è quello che permette alla droplet di raggiungere il sale in maniera precisa e veloce. \\
+
+\textbf{Risultati raggiunti}
+\\I dati hanno dimostrato che nelle soluzioni $10mM$ e $5mM$ la droplet compie dei percorsi più lunghi, arrivando molto vicina al punto di inserimento del sale. Tuttavia, nelle soluzioni $20mM$ si osservano dei movimenti più brevi, come se la droplet facesse fatica a riconoscere il gradiente del sale compiendo un movimento minimo. Bisogna tenere in considerazione che questo movimento può essere influenzato da flussi di aria capaci di creare dei moti convettivi all'interno del sistema. I moti possono agire come forza contraria alla direzione del movimento. 
 \begin{wraptable}{r}{0.55\textwidth}
 \caption{Tabella riassuntiva}
 %\begin{center}
